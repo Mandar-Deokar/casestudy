@@ -1,16 +1,16 @@
 package com.dto;
 
-public class Signup {
+public class SignupRequest {
 	private String name;
 	private String email;
 	private String password;
 	
-	public Signup() {
+	public SignupRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Signup(String name, String email, String password) {
+	public SignupRequest(String name, String email, String password) {
 		super();
 		this.name = name;
 		this.email = email;

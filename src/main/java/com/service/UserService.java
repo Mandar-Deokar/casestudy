@@ -3,8 +3,8 @@ package com.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dto.Login;
-import com.dto.Signup;
+import com.dto.LoginRequest;
+import com.dto.SignupRequest;
 import com.entity.User;
 import com.repository.UserRepository;
 
@@ -14,7 +14,7 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public User create(Signup signup){
+	public User create(SignupRequest signup){
 		User user = new User();
 		user.setEmail(signup.getEmail());
 		user.setName(signup.getName());
@@ -24,7 +24,7 @@ public class UserService {
 		
 	}
 	
-	public User get(Login login) {
+	public User get(LoginRequest login) {
 		User user  = userRepository.findbyEmailPassword(login.getEmail(), login.getPassword());
 		return user;
 	}

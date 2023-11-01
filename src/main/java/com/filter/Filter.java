@@ -1,5 +1,6 @@
 package com.filter;
 
+
 public class Filter {
 	int max;
 	int min;

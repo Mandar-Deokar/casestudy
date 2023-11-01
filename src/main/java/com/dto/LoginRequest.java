@@ -2,16 +2,16 @@ package com.dto;
 
 
 
-public class Login {
+public class LoginRequest {
 	private String email;
 	private String password;
 	
-	public Login() {
+	public LoginRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Login(String email, String password) {
+	public LoginRequest(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;

@@ -3,6 +3,7 @@ package com.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
-	@OneToMany
+	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
 	private String orderStatus;
 	@OneToOne

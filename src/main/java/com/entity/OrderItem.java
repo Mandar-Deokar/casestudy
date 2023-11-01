@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -14,13 +15,15 @@ public class OrderItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderitemid;
 
-	@OneToOne
+	@ManyToOne
 	private Product prduct;
 	private int quantity;
+	
+	@ManyToOne
+	private Orders orders;
 
 	public OrderItem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public OrderItem(int orderitemid, Product prduct, int quantity) {

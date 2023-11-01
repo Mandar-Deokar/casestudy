@@ -7,5 +7,6 @@ import com.entity.CartItem;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Integer>{
+	
 
 }

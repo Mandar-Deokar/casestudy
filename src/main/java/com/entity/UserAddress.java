@@ -4,12 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 public class UserAddress {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int addressId; 
+	
+	
+
 	private String street;
 	private String city;
 	private String state;
@@ -20,7 +25,9 @@ public class UserAddress {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserAddress(int addressId,String street, String city, String state, String pincode) {
+	
+	
+	public UserAddress(int addressId, String street, String city, String state, String pincode) {
 		super();
 		this.addressId = addressId;
 		this.street = street;
@@ -28,7 +35,7 @@ public class UserAddress {
 		this.state = state;
 		this.pincode = pincode;
 	}
-	
+
 	public String getStreet() {
 		return street;
 	}

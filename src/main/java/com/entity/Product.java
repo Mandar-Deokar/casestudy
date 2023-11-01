@@ -1,20 +1,22 @@
 package com.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_id")
 	private int productId;
-	@Column(name = "productname", unique = true)
+	@Column(name = "product_name", unique = true)
 	private String productName;
 	@Column(name = "price", precision = 3, nullable = false)
 	private double price;
@@ -22,20 +24,23 @@ public class Product {
 	private String details;
 	@Column(name = "brand", nullable = false)
 	private String brand;
-	@Column(nullable = false)
-	private String madeIn;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(nullable = false, name = "made_in")
+	private MadeIn madeIn;
+	
 	@Column(name = "rating", precision = 3)
 	private double rating;
-	@OneToOne
-	@JoinColumn(name = "category_id") // This specifies the join column
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "category")
 	private Category category;
 
 	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();	
 	}
 
-	public Product(int productId, String productName, double price, String details, String brand, String madeIn,
+	public Product(int productId, String productName, double price, String details, String brand, MadeIn madeIn,
 			double rating, Category category) {
 		super();
 		this.productId = productId;
@@ -88,11 +93,12 @@ public class Product {
 		this.brand = brand;
 	}
 
-	public String getMadeIn() {
+	
+	public MadeIn getMadeIn() {
 		return madeIn;
 	}
 
-	public void setMadeIn(String madeIn) {
+	public void setMadeIn(MadeIn madeIn) {
 		this.madeIn = madeIn;
 	}
 

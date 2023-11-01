@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dto.Login;
-import com.dto.Signup;
+import com.dto.LoginRequest;
+import com.dto.SignupRequest;
 import com.entity.User;
 import com.service.UserService;
 
@@ -21,7 +21,7 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/login")
-	public ResponseEntity<?> getlogin(@RequestBody Login login) {
+	public ResponseEntity<?> getlogin(@RequestBody LoginRequest login) {
 		try {
 			if (userService.get(login) != null) {
 				return ResponseEntity.ok("Sucess");
@@ -34,7 +34,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> getsignup(@RequestBody Signup signup) {
+	public ResponseEntity<?> getsignup(@RequestBody SignupRequest signup) {
 		try {
 			if (signup != null) {
 				User user = userService.create(signup);

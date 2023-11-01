@@ -15,7 +15,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userid")
 	private int userId;
 	@Column(name = "name", length = 5, nullable = false) 

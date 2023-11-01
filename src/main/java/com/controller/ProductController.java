@@ -16,14 +16,13 @@ import com.filter.Filter;
 import com.service.ProductService;
 
 @RestController
-//@CrossOrigin("*")
 public class ProductController {
-	
+
 	@Autowired
 	ProductService productService;
-	
+
 	@GetMapping("/products/getById/{productId}")
-	public ResponseEntity<?> get(@PathVariable() int productId) {
+	public ResponseEntity<?> get(@PathVariable int productId) {
 		try {
 			Product product = productService.get(productId);
 			if (product != null)
@@ -34,76 +33,75 @@ public class ProductController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-	
+
 	@PostMapping("/products/addProduct")
 	public ResponseEntity<?> addproduct(@RequestBody Product product) {
 		try {
 			if (product != null) {
-				Product createdproduct = productService.create(product);
-				return ResponseEntity.ok(createdproduct);
-			}
-			else {
+				Product newproduct = productService.create(product);
+				return ResponseEntity.ok(newproduct);
+			} else {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-	
-	
+
 	@PostMapping("/products/update")
 	public ResponseEntity<?> updateproduct(@RequestBody Product product) {
 		try {
 			if (product != null) {
 				Product updatedproduct = productService.update(product);
 				return ResponseEntity.ok(updatedproduct);
-			}
-			else {
+			} else {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-	
-	
-//	@GetMapping("/products/{category}")
-//	public ResponseEntity<?> getProductbyCategory(@PathVariable String category) {
-//		try {
-//			if (category != null) {
-//				List<Product> products = productService.getbyCategory(category);
-//				return ResponseEntity.ok(products);
-//			}
-//			else {
-//				return ResponseEntity.notFound().build();
-//			}
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//		}
-//	}
-	
-	
-	/*
-	 * @GetMapping("/products/search/{searchString}") public ResponseEntity<?>
-	 * getbyProductSearchString(@PathVariable String searchString) { try { if
-	 * (searchString != null) { List<Product> products =
-	 * productService.getbySearchString(searchString); return
-	 * ResponseEntity.ok(products); } else { return
-	 * ResponseEntity.notFound().build(); } } catch (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-	 * } }
-	 */
-	
-	/*
-	 * @PostMapping("/products/{category}/getFilteredProducts") public
-	 * ResponseEntity<?> getbyProductFilter(@RequestBody Filter
-	 * filter, @PathVariable String category) { try { if (filter != null) {
-	 * List<Product> products = productService.getbyFilter(category,filter); return
-	 * ResponseEntity.ok(products); } else { return
-	 * ResponseEntity.notFound().build(); } } catch (Exception e) { return
-	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-	 * } }
-	 */
-	
-	
+
+	@GetMapping("/products/{category}")
+	public ResponseEntity<?> getProductbyCategory(@PathVariable String category) {
+		try {
+			if (category != null) {
+				List<Product> products = productService.getbyCategory(category);
+				return ResponseEntity.ok(products);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
+	@GetMapping("/products/search/{searchString}")
+	public ResponseEntity<?> getbyProductSearchString(@PathVariable String searchString) {
+		try {
+			if (searchString != null) {
+				List<Product> products = productService.getbySearchString(searchString);
+				return ResponseEntity.ok(products);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/products/{category}/getFilteredProducts")
+	public ResponseEntity<?> getbyProductFilter(@PathVariable String category, @RequestBody Filter filter) {
+		try {
+			if (filter != null) {
+				List<Product> products = productService.getbyFilter(category, filter);
+				return ResponseEntity.ok(products);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
 }
