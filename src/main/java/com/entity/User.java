@@ -24,7 +24,7 @@ public class User {
 	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format")
 	@Column(name = "email", nullable = false)
 	private String email;
-	@Column(name = "phone", nullable = false, length = 10)
+	@Column(name = "phone", length = 10)
 	private String phone;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")

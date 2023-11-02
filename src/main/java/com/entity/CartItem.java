@@ -1,11 +1,13 @@
 package com.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class CartItem {
@@ -15,9 +17,10 @@ public class CartItem {
 	@ManyToOne
 	private Product product;
 	private int quantity;
-	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JsonIgnore
 	private Cart cart;
+
 	
 	public CartItem() {
 		super();
@@ -30,6 +33,7 @@ public class CartItem {
 		this.product = product;
 		this.quantity = quantity;
 	}
+
 
 	public int getCartItemId() {
 		return cartItemId;
@@ -55,10 +59,19 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	@Override
 	public String toString() {
 		return "CartItem [cartItemId=" + cartItemId + ", product=" + product + ", quantity=" + quantity + "]";
 	}
-	
+
+
 	
 }

@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.entity.Cart;
-import com.entity.CartItem;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer>{

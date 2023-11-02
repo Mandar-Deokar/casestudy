@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Cart;
 import com.entity.CartItem;
-import com.entity.Product;
 import com.service.CartItemService;
 import com.service.CartService;
 import com.service.ProductService;
+import com.service.UserService;
 
 @RestController
 public class CartController {
@@ -26,6 +26,9 @@ public class CartController {
 	
 	@Autowired
 	CartItemService cartItemService;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/cart/{userId}/getCart")
 	public ResponseEntity<?> getCartbyuserId(@PathVariable int userId) {
@@ -42,36 +45,34 @@ public class CartController {
 	}
 	
 	
-//	@GetMapping("/cart/{userId}/getCartItem/{cartItemId}")
-//	public ResponseEntity<?> getCartItembycartItemId(@PathVariable int userId, @PathVariable int cartItemId) {
-//		try {
-//			Cart cart = cartService.getbyuserId(userId);
-//			CartItem cartItem = cartService.getbycartItemId(cartItemId, cart);
-//			if (cartItem != null) {
-//				return ResponseEntity.ok(cartItem);
-//			} else {
-//				return ResponseEntity.notFound().build();
-//			}
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//		}
-//	}
-//	
-//	@PostMapping("/cart/{userId}/add/{productId}")
-//	public ResponseEntity<?> addtocart(@PathVariable int userId, @PathVariable int productId) {
-//		try {
-//			Cart cart = cartService.getbyuserId(userId);
-//			Product product = productService.get(productId);
-//			CartItem cartItem = cartItemService.add(product);
-//			if (cartItem != null) {
-//				return ResponseEntity.ok(cartItem);
-//			} else {
-//				return ResponseEntity.notFound().build();
-//			}
-//		} catch (Exception e) {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//		}
-//	}
+	@GetMapping("/cart/{userId}/getCartItem/{cartItemId}")
+	public ResponseEntity<?> getCartItembycartItemId(@PathVariable int userId, @PathVariable int cartItemId) {
+		try {
+			
+			CartItem cartItem = cartItemService.getbycartItemId(cartItemId);
+			if (cartItem != null) {
+				return ResponseEntity.ok(cartItem);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+	
+	@PostMapping("/cart/{userId}/add/{productId}")
+	public ResponseEntity<?> addtocart(@PathVariable int userId, @PathVariable int productId) {
+		try {
+			CartItem  cartItem = cartItemService.add(userId, productId);
+			if (cartItem != null) {
+				return ResponseEntity.ok(cartItem);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
 	
 	
 	

@@ -22,7 +22,7 @@ public class MadeIn {
 	private String madeInName;
 	
 	
-	@OneToMany( cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Product> product;	
 	
 	public List<Product> getProduct() {
