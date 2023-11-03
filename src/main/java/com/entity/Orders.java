@@ -17,11 +17,15 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
+	
 	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
+	
 	private String orderStatus;
+	
 	@OneToOne
 	private User user;
+	
 	public Orders() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entity.Cart;
@@ -73,6 +74,40 @@ public class CartController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
+	
+	@GetMapping("/cart/{userId}/remove/{productId}")
+	public ResponseEntity<?> removefromcart(@PathVariable int userId, @PathVariable int productId) {
+		try {
+			String  productName = cartItemService.remove(userId, productId);
+			if (productName != null) {
+				return ResponseEntity.ok(productName);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+	
+	
+	 
+	@PostMapping("/cart/{userId}/changeQuantity/{productId}")
+	public ResponseEntity<?> changeQantityOfcartItem(@RequestParam int quantity, @PathVariable int userId, @PathVariable int productId) {
+		try {
+			System.out.println("in the api");
+			CartItem cartItem = cartItemService.changeQuantity(userId, productId,quantity);
+			if (cartItem != null) {
+				return ResponseEntity.ok(cartItem);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+	
+	
+	
 	
 	
 	

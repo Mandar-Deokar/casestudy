@@ -11,7 +11,11 @@ import com.entity.User;
 import com.repository.CartItemRepository;
 import com.repository.CartRepository;
 
+import jakarta.transaction.Transactional;
+
+
 @Service
+@Transactional
 public class CartItemService {
 	
 	@Autowired
@@ -94,5 +98,50 @@ public class CartItemService {
 		return cartItem;
 	}
 
+	public String remove(int userId, int productId) throws Exception {
+		
+		Cart cart = cartService.getbyuserId(userId);
+		if(cart == null) {
+			 throw new Exception("cart not found"); 			 
+		}
+		
+		Product product = productService.get(productId);
+		if(product == null) {
+			 throw new Exception("product not found"); 			 
+		}
+		
+		cartItemRepository.removeByProductAndCart(product,cart);
+		
+		return product.getProductName();
+	}
+
+	public CartItem changeQuantity(int userId, int productId,int quantity) throws Exception {
+		
+		Cart cart = cartService.getbyuserId(userId);
+		if(cart == null) {
+			 throw new Exception("cart not found"); 			 
+		}
+
+		Product product = productService.get(productId);
+		if(product == null) {
+			 throw new Exception("product not found"); 			 
+		}
+		
+		CartItem cartItem = cartItemRepository.findByProductAndCart(product,cart);
+		if(cartItem == null) {
+			 throw new Exception("cartItem not found"); 			 
+		}
+		
+		cartItem.setQuantity(quantity);
+		cartItem = cartItemRepository.save(cartItem);
+		System.out.println("cartItem");
+		
+		return cartItem;
+	}
+	
+	
+	
+	
+	
 	
 }
