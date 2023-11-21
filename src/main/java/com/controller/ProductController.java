@@ -51,7 +51,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/products/update")
-	public ResponseEntity<?> updateproduct(@RequestBody Product product) {
+	public ResponseEntity<?> updateproduct(@RequestBody ProductDto product) {
 		try {
 			if (product != null) {
 				ProductDto updatedproduct = productService.update(product);

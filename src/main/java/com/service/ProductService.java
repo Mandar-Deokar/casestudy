@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalApplicationListener;
 
 import com.dto.ProductDto;
 import com.entity.Category;
@@ -87,28 +86,50 @@ public class ProductService {
 		return productResponse;
 	}
 
-	public ProductDto update(Product product) {
-		Product tempproduct = productRepository.findById(product.getProductId()).orElse(null);
-		tempproduct.setCategory(product.getCategory());
-		tempproduct.setDetails(product.getDetails());
-		tempproduct.setProductName(product.getProductName());
-		tempproduct.setPrice(product.getPrice());
-		tempproduct.setBrand(product.getBrand());
-		tempproduct.setRating(product.getRating());
-		tempproduct.setMadeIn(product.getMadeIn());
-		tempproduct.setCategory(product.getCategory());
+	public ProductDto update(ProductDto productDto) {
+		Product tempproduct = productRepository.findById(productDto.getProductId()).orElse(null);
+		
+		Category category = catRepo.getcategory(productDto.getCategory());
+		if(category == null) {
+			category = new Category();
+			category.setCategoryName(productDto.getCategory());
+			catRepo.save(category);
+			tempproduct.setCategory(category);
+		}
+		else {
+			tempproduct.setCategory(category);
+		}
+		
+	
+		MadeIn madeIn = madeInRepo.getmadeIn(productDto.getMadeIn());
+		if(madeIn == null) {
+			madeIn = new MadeIn();
+			madeIn.setMadeInName(productDto.getMadeIn());
+			madeInRepo.save(madeIn);
+			tempproduct.setMadeIn(madeIn);
+		}
+		else {
+			tempproduct.setMadeIn(madeIn);
+		}
+		
+		tempproduct.setDetails(productDto.getDetails());
+		tempproduct.setProductName(productDto.getProductName());
+		tempproduct.setPrice(productDto.getPrice());
+		tempproduct.setBrand(productDto.getBrand());
+		tempproduct.setRating(productDto.getRating());
+		tempproduct.setImage(productDto.getImage());
 		productRepository.save(tempproduct);
 		
-		ProductDto productDto = new ProductDto();
-		productDto.setProductId(product.getProductId());
-		productDto.setProductName(product.getProductName());
-		productDto.setPrice(product.getPrice());
-		productDto.setDetails(product.getDetails());
-		productDto.setBrand(product.getBrand());
-		productDto.setMadeIn(product.getMadeIn().getMadeInName());
-		productDto.setRating(product.getRating());
-		productDto.setCategory(product.getCategory().getCategoryName());
-		productDto.setImage(product.getImage());
+		
+		productDto.setProductId(tempproduct.getProductId());
+		productDto.setProductName(tempproduct.getProductName());
+		productDto.setPrice(tempproduct.getPrice());
+		productDto.setDetails(tempproduct.getDetails());
+		productDto.setBrand(tempproduct.getBrand());
+		productDto.setMadeIn(tempproduct.getMadeIn().getMadeInName());
+		productDto.setRating(tempproduct.getRating());
+		productDto.setCategory(tempproduct.getCategory().getCategoryName());
+		productDto.setImage(tempproduct.getImage());
 		
 		return productDto;
 
