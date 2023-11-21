@@ -18,7 +18,7 @@ public class MadeIn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "made_in_id")
 	private int madeInId;
-	@Column(name = "made_in_name", nullable = false)
+	@Column(name = "made_in_name")
 	private String madeInName;
 	
 	

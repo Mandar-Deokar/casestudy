@@ -1,51 +1,24 @@
-package com.entity;
+package com.dto;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
-@Entity
-public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "product_id")
+public class ProductDto {
 	private int productId;
-	@Column(name = "product_name", unique = true)
 	private String productName;
-	@Column(name = "price", precision = 3)
 	private double price;
-	@Column(name = "details")
 	private String details;
-	@Column(name = "brand")
 	private String brand;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "made_in")
-	private MadeIn madeIn;
-	
-	@Column(name = "rating", precision = 3)
+	private String madeIn;
 	private double rating;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "category")
-	private Category category;
-	
-	@Column(name = "image")
+	private String category;
 	private String image;
-
 	
-	public Product() {
-		super();	
+	public ProductDto() {
+		super();
 	}
 
-	public Product(int productId, String productName, double price, String details, String brand, MadeIn madeIn,
-			double rating, Category category, String image) {
+	public ProductDto(int productId, String productName, double price, String details, String brand, String madeIn,
+			double rating, String category, String image) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -98,15 +71,6 @@ public class Product {
 		this.brand = brand;
 	}
 
-	
-	public MadeIn getMadeIn() {
-		return madeIn;
-	}
-
-	public void setMadeIn(MadeIn madeIn) {
-		this.madeIn = madeIn;
-	}
-
 	public double getRating() {
 		return rating;
 	}
@@ -115,15 +79,22 @@ public class Product {
 		this.rating = rating;
 	}
 
-	public Category getCategory() {
+	public String getMadeIn() {
+		return madeIn;
+	}
+
+	public void setMadeIn(String madeIn) {
+		this.madeIn = madeIn;
+	}
+
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	
 	public String getImage() {
 		return image;
 	}
@@ -134,11 +105,10 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", productName=" + productName + ", price=" + price + ", details="
+		return "ProductDto [productId=" + productId + ", productName=" + productName + ", price=" + price + ", details="
 				+ details + ", brand=" + brand + ", madeIn=" + madeIn + ", rating=" + rating + ", category=" + category
 				+ ", image=" + image + "]";
 	}
-
-
-
+	
+	
 }

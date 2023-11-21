@@ -14,32 +14,38 @@ import com.dto.SignupRequest;
 import com.entity.User;
 import com.service.UserService;
 
+
 @RestController
 public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+//	@PostConstruct
+//	public void initUserAndRoles() {
+//		userService.initUserAndRole();
+//	}
 
 	@PostMapping("/login")
 	public ResponseEntity<?> getlogin(@RequestBody LoginRequest login) {
 		try {
-			if (userService.get(login) != null) {
-				return ResponseEntity.ok("Sucess");
-			} else {
+			User user = userService.get(login);
+			if (user != null) {
+	            return ResponseEntity.ok().body(user);
+			} 
+			else {
 				return ResponseEntity.notFound().build();
 			}
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> getsignup(@RequestBody SignupRequest signup) {
 		try {
 			if (signup != null) {
 				User user = userService.create(signup);
-
-			
 				return ResponseEntity.ok(user.getUserId());
 
 			} else {

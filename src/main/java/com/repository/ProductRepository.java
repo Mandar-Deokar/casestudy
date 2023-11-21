@@ -56,5 +56,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			@Param("min") int min,
 			@Param("max") int max,
 			@Param("rating") int rating);
+	
+	@Query("SELECT p FROM Product p")
+	List<Product> getall();
 
 }

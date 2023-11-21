@@ -19,21 +19,17 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id")
 	private int categoryId;
-	public List<Product> getProduct() {
-		return product;
-	}
-
-
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
+	
 
 	@Column(name = "categoryname", nullable = false)
 	private String categoryName;
 	
 	@OneToMany( cascade = CascadeType.ALL)
 	private List<Product> product;
+
+
+
+	
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -47,7 +43,14 @@ public class Category {
 		this.product = product;
 	}
 
+	public List<Product> getProduct() {
+		return product;
+	}
 
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
 
 	public int getCategoryId() {
 		return categoryId;
