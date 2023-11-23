@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dto.LoginRequest;
 import com.dto.SignupRequest;
+import com.dto.UserDto;
 import com.entity.User;
 import com.service.UserService;
 
@@ -29,9 +30,9 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> getlogin(@RequestBody LoginRequest login) {
 		try {
-			User user = userService.get(login);
-			if (user != null) {
-	            return ResponseEntity.ok().body(user);
+			UserDto userDto = userService.get(login);
+			if (userDto != null) {
+	            return ResponseEntity.ok().body(userDto);
 			} 
 			else {
 				return ResponseEntity.notFound().build();
@@ -45,8 +46,8 @@ public class UserController {
 	public ResponseEntity<?> getsignup(@RequestBody SignupRequest signup) {
 		try {
 			if (signup != null) {
-				User user = userService.create(signup);
-				return ResponseEntity.ok(user.getUserId());
+				UserDto userDto = userService.create(signup);
+				return ResponseEntity.ok(userDto);
 
 			} else {
 				return ResponseEntity.notFound().build();

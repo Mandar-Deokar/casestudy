@@ -1,6 +1,5 @@
 package com.entity;
 
-import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -8,12 +7,10 @@ import javax.validation.constraints.Pattern;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -22,15 +19,18 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userid")
 	private int userId;
-	
+
 	@Column(name = "name", nullable = false)
 	private String name;
-	
+
 	@NotBlank
 	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format")
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
+
+	@Column(name = "password", nullable = false)
+	private String password;
+
 	@Column(name = "phone", length = 10)
 	private String phone;
 
@@ -38,12 +38,8 @@ public class User {
 	@JoinColumn(name = "address_id")
 	private UserAddress address;
 
-	@Column(name = "password", nullable = false)
-	private String password;
-
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "role_id")
-	private Set<Role> role;
+	@Column(name = "role", nullable = false)
+	private String role;
 
 	public User() {
 		super();
@@ -52,7 +48,7 @@ public class User {
 
 	public User(int userId, String name,
 			@NotBlank @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Invalid email format") String email,
-			String phone, UserAddress address, String password, Set<Role> role) {
+			String phone, UserAddress address, String password, String role) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -111,11 +107,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<Role> getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Set<Role> role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

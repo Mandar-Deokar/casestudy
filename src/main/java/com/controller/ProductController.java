@@ -82,7 +82,7 @@ public class ProductController {
 	public ResponseEntity<?> getbyProductSearchString(@PathVariable String searchString) {
 		try {
 			if (searchString != null) {
-				List<Product> products = productService.getbySearchString(searchString);
+				List<ProductDto> products = productService.getbySearchString(searchString);
 				return ResponseEntity.ok(products);
 			} else {
 				return ResponseEntity.notFound().build();

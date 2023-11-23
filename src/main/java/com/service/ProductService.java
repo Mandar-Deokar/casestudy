@@ -140,9 +140,26 @@ public class ProductService {
 		return products;
 	}
 
-	public List<Product> getbySearchString(String searchString) {
+	public List<ProductDto> getbySearchString(String searchString) {
 		List<Product> products = productRepository.getSearchStringProducts(searchString);
-		return products;
+		List<ProductDto> productlist = new ArrayList<ProductDto>();
+		for(Product product: products) {
+			
+			ProductDto productDto = new ProductDto();
+			productDto.setProductId(product.getProductId());
+			productDto.setBrand(product.getBrand());
+			productDto.setCategory(product.getCategory().getCategoryName());
+			productDto.setDetails(product.getDetails());
+			productDto.setImage(product.getImage());
+			productDto.setMadeIn(product.getMadeIn().getMadeInName());
+			productDto.setPrice(product.getPrice());
+			productDto.setProductName(product.getProductName());
+			productDto.setRating(product.getRating());
+			
+			productlist.add(productDto);
+		}
+		
+		return productlist;
 	}
 
 	public List<Product> getbyFilter(String category, Filter filter) {

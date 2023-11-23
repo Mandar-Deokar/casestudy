@@ -1,24 +1,19 @@
 package com.dto;
 
-import java.util.Set;
-
-import com.entity.Role;
-
-public class UserResponse {
+public class UserDto {
 	
 	int userId;
 	String name;
 	String email;
 	String phone;
-	String address;
-	Set<Role> role;
+	AddressDto address;
+	String role;
 	
-	public UserResponse() {
+	public UserDto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public UserResponse(int userId, String name, String email, String phone, String address, Set<Role> role) {
+	public UserDto(int userId, String name, String email, String phone, AddressDto address, String role) {
 		super();
 		this.userId = userId;
 		this.name = name;
@@ -60,19 +55,19 @@ public class UserResponse {
 		this.phone = phone;
 	}
 
-	public String getAddress() {
+	public AddressDto getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(AddressDto address) {
 		this.address = address;
 	}
 
-	public Set<Role> getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Set<Role> role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

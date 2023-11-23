@@ -5,16 +5,18 @@ package com.dto;
 public class LoginRequest {
 	private String email;
 	private String password;
+	private String role;
 	
 	public LoginRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public LoginRequest(String email, String password) {
+
+	public LoginRequest(String email, String password, String role) {
 		super();
 		this.email = email;
 		this.password = password;
+		this.role = role;
 	}
 
 	public String getEmail() {
@@ -33,9 +35,17 @@ public class LoginRequest {
 		this.password = password;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
-		return "Login [email=" + email + ", password=" + password + "]";
+		return "LoginRequest [email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
 	
 	
