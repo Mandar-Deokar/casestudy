@@ -17,9 +17,9 @@ public class UserService {
 	UserRepository userRepository;
 
 	public UserDto create(SignupRequest signup) throws Exception {
-		
-		User user =  userRepository.findByEmailRole(signup.getEmail(), signup.getRole());
-		if(user != null) {
+
+		User user = userRepository.findByEmailRole(signup.getEmail(), signup.getRole());
+		if (user != null) {
 			throw new Exception("user already exist");
 		}
 		user = new User();
@@ -41,36 +41,37 @@ public class UserService {
 
 	}
 
-	public UserDto get(LoginRequest login) {
+	public UserDto get(LoginRequest login) throws Exception {
 		User user = userRepository.findbyEmailPassword(login.getEmail(), login.getPassword(), login.getRole());
+
+		if (user == null) {
+			throw new Exception("user not found");
+		}
 
 		UserDto userDto = new UserDto();
 
 		AddressDto addressDto = new AddressDto();
-		if(user.getAddress() != null) {
-		if (user.getAddress().getAddressId() > 0) {
-			addressDto.setAddressId(user.getAddress().getAddressId());
-		}
-		if (user.getAddress().getCity() != null) {
-			addressDto.setCity(user.getAddress().getCity());
-		}
-		if (user.getAddress().getPincode() != null) {
-			addressDto.setPincode(user.getAddress().getPincode());
-		}
-		if (user.getAddress().getState() != null) {
-			addressDto.setState(user.getAddress().getState());
-		}
-		if (user.getAddress().getStreet() != null) {
-			addressDto.setStreet(user.getAddress().getStreet());
-		}
-		}
-		if (addressDto != null) {
+		if (user.getAddress() != null) {
+			if (user.getAddress().getAddressId() > 0) {
+				addressDto.setAddressId(user.getAddress().getAddressId());
+			}
+			if (user.getAddress().getCity() != null) {
+				addressDto.setCity(user.getAddress().getCity());
+			}
+			if (user.getAddress().getPincode() != null) {
+				addressDto.setPincode(user.getAddress().getPincode());
+			}
+			if (user.getAddress().getState() != null) {
+				addressDto.setState(user.getAddress().getState());
+			}
+			if (user.getAddress().getStreet() != null) {
+				addressDto.setStreet(user.getAddress().getStreet());
+			}
 			userDto.setAddress(addressDto);
 		}
-		if (user.getPhone() != null) {
-			userDto.setPhone(user.getPhone());
-		}
+		
 
+		userDto.setPhone(user.getPhone());
 		userDto.setEmail(user.getEmail());
 		userDto.setName(user.getName());
 		userDto.setUserId(user.getUserId());
@@ -88,6 +89,7 @@ public class UserService {
 		tempUser.setPassword(user.getPassword());
 		tempUser.setRole(user.getRole());
 		userRepository.save(tempUser);
+
 //		System.out.println("user got updated");
 
 	}
@@ -98,9 +100,43 @@ public class UserService {
 //		System.out.println("user got deleted");
 	}
 
-	public User getbyId(int userId) {
+	public UserDto getbyId(int userId) {
 		User user = userRepository.findById(userId).orElse(null);
-		return user;
+
+		UserDto userDto = new UserDto();
+
+		AddressDto addressDto = new AddressDto();
+		if (user.getAddress() != null) {
+			if (user.getAddress().getAddressId() > 0) {
+				addressDto.setAddressId(user.getAddress().getAddressId());
+			}
+			if (user.getAddress().getCity() != null) {
+				addressDto.setCity(user.getAddress().getCity());
+			}
+			if (user.getAddress().getPincode() != null) {
+				addressDto.setPincode(user.getAddress().getPincode());
+			}
+			if (user.getAddress().getState() != null) {
+				addressDto.setState(user.getAddress().getState());
+			}
+			if (user.getAddress().getStreet() != null) {
+				addressDto.setStreet(user.getAddress().getStreet());
+			}
+		}
+		if (addressDto != null) {
+			userDto.setAddress(addressDto);
+		}
+		if (user.getPhone() != null) {
+			userDto.setPhone(user.getPhone());
+		}
+
+		userDto.setEmail(user.getEmail());
+		userDto.setName(user.getName());
+		userDto.setUserId(user.getUserId());
+		userDto.setRole(user.getRole());
+
+		return userDto;
+
 	}
 
 //	public void initUserAndRole() {

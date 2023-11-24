@@ -3,7 +3,6 @@ package com.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dto.ProductDto;
 import com.entity.Cart;
 import com.entity.CartItem;
 import com.entity.Product;
@@ -11,6 +10,7 @@ import com.entity.User;
 import com.repository.CartItemRepository;
 import com.repository.CartRepository;
 import com.repository.ProductRepository;
+import com.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -35,10 +35,13 @@ public class CartItemService {
 
 	@Autowired
 	CartRepository cartRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	public CartItem add(int userId, int productId) throws Exception {
 
-		User user = userService.getbyId(userId);
+		User user = userRepository.findById(userId).get();
 
 		if (user == null) {
 			throw new Exception("user not found");
@@ -46,7 +49,7 @@ public class CartItemService {
 
 		Cart cart = cartService.getbyuserId(userId);
 
-		Product product = productRepository.getById(productId);
+		Product product = productRepository.findById(productId).get();
 
 		if (product == null) {
 			throw new Exception("product not found");
@@ -106,7 +109,7 @@ public class CartItemService {
 			throw new Exception("cart not found");
 		}
 
-		Product product = productRepository.getById(productId);
+		Product product = productRepository.findById(productId).get();
 		if (product == null) {
 			throw new Exception("product not found");
 		}

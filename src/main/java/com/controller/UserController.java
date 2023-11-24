@@ -60,9 +60,9 @@ public class UserController {
 	@GetMapping("/getprofile/{userId}")
 	public ResponseEntity<?> getprofile(@PathVariable int userId) {
 		try {
-			User user = userService.getbyId(userId);
-			if (user != null) {
-				return ResponseEntity.ok(user);
+			UserDto userDto = userService.getbyId(userId);
+			if (userDto != null) {
+				return ResponseEntity.ok(userDto);
 			} else {
 				return ResponseEntity.notFound().build();
 			}
