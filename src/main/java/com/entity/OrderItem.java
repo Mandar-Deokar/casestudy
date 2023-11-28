@@ -1,6 +1,8 @@
 
 package com.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,33 +14,43 @@ public class OrderItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int orderitemid;
+	private int orderItemId;
 
 	@ManyToOne
 	private Product prduct;
+	
 	private int quantity;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Orders orders;
 
 	public OrderItem() {
 		super();
 	}
 
-	public OrderItem(int orderitemid, Product prduct, int quantity) {
+	public OrderItem(int orderItemId, Product prduct, int quantity) {
 		super();
-		this.orderitemid = orderitemid;
+		this.orderItemId = orderItemId;
 		this.prduct = prduct;
 		this.quantity = quantity;
 
 	}
 
-	public int getOrderitemid() {
-		return orderitemid;
+	public int getOrderItemId() {
+		return orderItemId;
 	}
 
-	public void setOrderitemid(int orderitemid) {
-		this.orderitemid = orderitemid;
+	public void setOrderItemId(int orderItemId) {
+		this.orderItemId = orderItemId;
+	}
+
+	public Orders getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Orders orders) {
+		this.orders = orders;
 	}
 
 	public Product getPrduct() {
@@ -57,9 +69,5 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderItem [orderitemid=" + orderitemid + ", prduct=" + prduct + ", quantity=" + quantity + "]";
-	}
-
+	
 }

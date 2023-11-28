@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -23,7 +25,9 @@ public class Orders {
 	
 	private String orderStatus;
 	
-	@OneToOne
+	private String address;
+	
+	@ManyToOne
 	private User user;
 	
 	public Orders() {
@@ -37,6 +41,14 @@ public class Orders {
 		this.orderItems = orderItems;
 		this.orderStatus = orderStatus;
 		this.user = user;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public User getUser() {
@@ -71,12 +83,14 @@ public class Orders {
 		this.orderStatus = orderStatus;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", orderItems=" + orderItems + ", orderStatus=" + orderStatus + ", user="
-				+ user + "]";
+		return "Orders [orderId=" + orderId + ", orderItems=" + orderItems + ", orderStatus=" + orderStatus
+				+ ", address=" + address + ", user=" + user + "]";
 	}
+
+	
+	
 	
 	
 }
