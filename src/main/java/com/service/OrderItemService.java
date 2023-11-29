@@ -37,17 +37,6 @@ public class OrderItemService {
 		
 	}
 	
-	public OrderItem create(CartItem cartItem, Orders orders) throws Exception {
-
-		OrderItem orderItem = new OrderItem();
-		orderItem.setPrduct(cartItem.getProduct());
-		orderItem.setQuantity(cartItem.getQuantity());
-		orderItem.setOrders(orders);
-		
-		orderItemRepository.save(orderItem);
-
-		return orderItem;
-
-	}
+	
 
 }

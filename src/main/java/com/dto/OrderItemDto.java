@@ -2,67 +2,26 @@ package com.dto;
 
 public class OrderItemDto {
 
-	private String email;
-	private String address;
-	private String contact;
-	private int totalPrice;
-	private int userId;
 	private int orderItemId;
+	private String productName;
+	private double productPrice;
+	private int quantity;
+	
 	
 	public OrderItemDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderItemDto(String email, String address, String contact, int totalPrice, int userId, int orderItemId) {
+	public OrderItemDto(int orderItemId, String productName, double productPrice, int quantity) {
 		super();
-		this.email = email;
-		this.address = address;
-		this.contact = contact;
-		this.totalPrice = totalPrice;
-		this.userId = userId;
 		this.orderItemId = orderItemId;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.quantity = quantity;
+	
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getContact() {
-		return contact;
-	}
-
-	public void setContact(String contact) {
-		this.contact = contact;
-	}
-
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 
 	public int getOrderItemId() {
 		return orderItemId;
@@ -72,11 +31,40 @@ public class OrderItemDto {
 		this.orderItemId = orderItemId;
 	}
 
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public double getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(double productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "OrderItemDto [email=" + email + ", address=" + address + ", contact=" + contact + ", totalPrice="
-				+ totalPrice + ", userId=" + userId + ", orderItemId=" + orderItemId + "]";
+		return "OrderItemDto [orderItemId=" + orderItemId + ", productName=" + productName
+				+ ", productPrice=" + productPrice + ", quantity=" + quantity + "]";
 	}
+
+
+	
 	
 	
 }

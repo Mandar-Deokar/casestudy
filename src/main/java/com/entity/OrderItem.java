@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class OrderItem {
@@ -16,7 +17,7 @@ public class OrderItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderItemId;
 
-	@ManyToOne
+	@OneToOne
 	private Product prduct;
 	
 	private int quantity;

@@ -23,26 +23,36 @@ public class Orders {
 	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
 	
-	private String orderStatus;
+	private String orderStatus =  "pay on delivery";
 	
 	private String address;
 	
 	@ManyToOne
 	private User user;
 	
+	private double totalPrice;
+	
+	private String contact;
+	
 	public Orders() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Orders(int orderId, List<OrderItem> orderItems, String orderStatus, User user) {
+
+	public Orders(int orderId, List<OrderItem> orderItems, String orderStatus, String address, User user,
+			double totalPrice, String contact) {
 		super();
 		this.orderId = orderId;
 		this.orderItems = orderItems;
 		this.orderStatus = orderStatus;
+		this.address = address;
 		this.user = user;
+		this.totalPrice = totalPrice;
+		this.contact = contact;
 	}
-	
+
+
 	public String getAddress() {
 		return address;
 	}
@@ -83,10 +93,29 @@ public class Orders {
 		this.orderStatus = orderStatus;
 	}
 
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderItems=" + orderItems + ", orderStatus=" + orderStatus
-				+ ", address=" + address + ", user=" + user + "]";
+				+ ", address=" + address + ", user=" + user + ", totalPrice=" + totalPrice + ", contact=" + contact
+				+ "]";
 	}
 
 	

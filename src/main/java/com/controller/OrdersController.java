@@ -7,8 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dto.OrderDto;
 import com.entity.OrderItem;
 import com.entity.Orders;
 import com.service.OrderItemService;
@@ -24,10 +27,10 @@ public class OrdersController {
 	OrderItemService orderItemService;
 	
 	
-	@GetMapping("/order/{userId}/getOrders")
+	@GetMapping("/orders/{userId}")
 	public ResponseEntity<?> getOrderHistory(@PathVariable int userId) {
 		try {
-			List<Orders> ordersList = ordersService.getByuserId(userId);
+			List<OrderDto> ordersList = ordersService.getByuserId(userId);
 			if (ordersList != null) {
 				return ResponseEntity.ok(ordersList);
 			} else {
@@ -38,12 +41,12 @@ public class OrdersController {
 		}
 	}
 	
-	@GetMapping("/order/{userId}/createOrder")
-	public ResponseEntity<?> createOrder(@PathVariable int userId) {
+	@PostMapping("/order/createOrder")
+	public ResponseEntity<?> createOrder(@RequestBody OrderDto orderDto) {
 		try {
-			Orders orders = ordersService.create(userId);
-			if (orders != null) {
-				return ResponseEntity.ok(orders);
+			OrderDto orderDtoRes = ordersService.create(orderDto);
+			if (orderDtoRes != null) {
+				return ResponseEntity.ok(orderDtoRes);
 			} else {
 				return ResponseEntity.notFound().build();
 			}

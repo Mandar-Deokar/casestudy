@@ -156,6 +156,8 @@ CartItemDto cartItemDto = new CartItemDto();
 		cartItemDto.setUserId(cartItem.getCart().getUser().getUserId());
 		cartItemDto.setCartItemId(cartItem.getCartItemId());
 		
+		
+		
 		return cartItemDto;
 	}
 
@@ -197,7 +199,7 @@ CartItemDto cartItemDto = new CartItemDto();
 			cartItemDto.setCartId(item.getCart().getCartId());
 			cartItemDto.setCategory(item.getProduct().getCategory().getCategoryName());
 			cartItemDto.setDetails(item.getProduct().getDetails());
-			cartItemDto.setImage(item.getProduct().getDetails());
+			cartItemDto.setImage(item.getProduct().getImage());
 			cartItemDto.setMadeIn(item.getProduct().getMadeIn().getMadeInName());
 			cartItemDto.setPrice(item.getProduct().getPrice());
 			cartItemDto.setProductId(item.getProduct().getProductId());
